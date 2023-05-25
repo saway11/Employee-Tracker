@@ -165,6 +165,15 @@ async function addRole() {
         console.log(err);
     }
 }
-// Add
+// Add new employee
+async function addEmployee() {
+    let roleArr, managerList;
+
+    const [roles] = await db.promise().query(`SELECT title, id FROM role`);
+    // Only need the first array that gets the return from the promise
+    roleArr = role.map(({ title, id}) => {
+        return { name: title, value: id};
+    });
+}
 
 
