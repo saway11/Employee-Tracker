@@ -109,6 +109,18 @@ function addDepartment() {
             message: `What is the name of the deparment`,
         },
     ];
-    //
+    // prompt user to enter what is the name of the deparment
+    inquirer.createPromptModule(question).then(({ addDepartment } = data) => {
+        const queryStatement = `INSERT INTO department(name)
+        Values ('${addDepartment}');
+        `;
+        db.query(queryStatement, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.info(`Added ${addDepartment} to the database`);
+            askQuestion();
+        });
+    });
 }
 
