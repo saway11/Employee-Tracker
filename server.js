@@ -41,13 +41,13 @@ function askQuestion(isStartUp) {
                 'add a department',
                 'add a role',
                 'add an employee',
-                'update and employee role',
+                'update an employee role',
                 'quit',
             ],
         },
     ];
 
-    // function to gather user input and perfomr actions based on the selected choice.
+    // function to gather user input and perform actions based on the selected choice.
     inquirer
         .createPromptModule(questions)
         .then((data) => {
@@ -58,7 +58,7 @@ function askQuestion(isStartUp) {
                     break;
                 case 'view all roles':
                     viewAll(`SELECT role.id AS id, role.title AS title, department.name AS department, role.salary AS salary
-                    FROM role
+                    FROM role 
                     INNER JOIN department ON role.department_id = department.id`);
                     break;
                 case 'view all employees':
@@ -153,7 +153,18 @@ async function addRole() {
                 choices: departmentNameArr,
             },
         ];
-        
+
+        // using inquirer to prompt the user for data, insert that data into a databse using SQL and handle any error that occur
+        const data = await inquirer.createPromptModule(question);
+        const queryStatement = `INSERT INTO role SET ?`;
+        awaitdb.promise().query(queryStatement, data);
+
+        console.info(`Added ${data.title} the database`);
+        askQuestion();
+    } catch (err) {
+        console.log(err);
     }
 }
+// Add
+
 
