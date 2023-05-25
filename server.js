@@ -86,5 +86,8 @@ function askQuestion(isStartUp) {
                     break;
             }
         })
+        .catch((err) => console.log(err));
 }
+
+// General view all results function
 
