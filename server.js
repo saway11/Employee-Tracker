@@ -124,3 +124,36 @@ function addDepartment() {
     });
 }
 
+// Add new Role
+async function addRole() {
+    try {
+        const [result] = await db.promise().query(`SELECT * FROM department`);
+
+        const departmentNameArr = result.map(({ id, name }) => {
+            return { name, value: id };
+        });
+
+        const question = [
+            {
+                type: 'input',
+                name: 'title',
+                message: `What is the name of the Role`,
+            },
+            // salary of the role
+            {
+                type: 'input',
+                name: 'salary',
+                message: `Please add the salary of the role`,
+            },
+            // which department does the role belong to?
+            {
+                type: 'list',
+                name: 'department_id',
+                message: `Which department does the role belong to?`,
+                choices: departmentNameArr,
+            },
+        ];
+        
+    }
+}
+
