@@ -174,6 +174,20 @@ async function addEmployee() {
     roleArr = role.map(({ title, id}) => {
         return { name: title, value: id};
     });
+
+    const [managers] = await db
+    .promise()
+    .query(
+        `SELECT first_name, last_name, id FROM employee WHERE employee.manager_id IS NULL`
+    );
+
+    // Only need the first array that gets return from the promise
+    managerList = managers.map(({ firs_name, last_name, id }) => {
+        return { name: `${first_name} ${last_name}`, value: id};
+    });
+
+    // Add none an option
+    managerList.push({ name: 'None', value: null});
 }
 
 
