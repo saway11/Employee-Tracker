@@ -100,5 +100,15 @@ function viewAll(queryStatement) {
     });
 }
 
-
+// Add new deparment
+function addDepartment() {
+    const question = [
+        {
+            type: 'input',
+            name: 'addDepartment',
+            message: `What is the name of the deparment`,
+        },
+    ];
+    //
+}
 
