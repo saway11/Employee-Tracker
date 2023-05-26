@@ -220,4 +220,25 @@ async function addEmployee() {
     askQuestion();
 }
 
+// Update empoyee role
+async function updateEmployeeRole() {
+    const queryStatement = `SELECT id, first_name, last_name FROM employee`;
+
+    let employeeList, roleList;
+
+    // Grab employee list for inquirer choices
+    const [employees] = await db.promise().query(queryStatement);
+
+    employeeList = employees.map(({ id, first_name, last_name } = employee) => {
+        return { name: `${first_name} ${last_name}`, value: id };
+    });
+
+    // Grab role list for inquirer choices
+    const [roles] = await db.promise().query(`SELECT title, id FROM role`);
+
+    roleList = role.map(({ title, id}) => {
+        
+    })
+}
+
 
