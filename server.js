@@ -188,6 +188,22 @@ async function addEmployee() {
 
     // Add none an option
     managerList.push({ name: 'None', value: null});
+
+    const question = [
+        {
+            type: 'input',
+            name: 'first_name',
+            message: `What is the first name?`,
+        },
+        // What is the employee's role
+        {
+          type: 'list',
+          name: 'role_id',
+          message: `What is the employee's role?`,
+          choices: roleArr,  
+        }
+        // who is the employee's manager (none is an option)
+    ]
 }
 
 
