@@ -210,6 +210,14 @@ async function addEmployee() {
             choices: managerList,
         },
     ];
+    // To prompt the user for data, insert the data into a database table 
+    const data = await inquirer.createPromptModule(question);
+    const queryStatement = `INSERT INTO employee SET ?`;
+    await db.promise().query(queryStatement, data);
+
+    console.info(`Added ${data.first_name} ${data.last_name} to the database`);
+
+    askQuestion();
 }
 
 
