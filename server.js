@@ -248,10 +248,21 @@ async function updateEmployeeRole() {
             message: `Which employee's role do you want to update`,
             choices: roleList,
         },
-    ],
+    ];
     inquirer.prompt(question).then(({ employee_id, role_id }) => {
         const queryStatement = `UPDATE employee SET role_id = $[role_id] WHERE id = ${employee_id};`;
-    })
+
+        db.query(queryStatment, (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            console.info(`Updated employee's role`);
+            askQuestion();
+        });
+    });
 }
+
+// Set to true on load
+askQuestion(true);
 
 
