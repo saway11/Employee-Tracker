@@ -201,9 +201,15 @@ async function addEmployee() {
           name: 'role_id',
           message: `What is the employee's role?`,
           choices: roleArr,  
-        }
+        },
         // who is the employee's manager (none is an option)
-    ]
+        {
+            type: 'list',
+            name: 'manager_id',
+            message: `Who is the employee's manager?`,
+            choices: managerList,
+        },
+    ];
 }
 
 
