@@ -16,3 +16,20 @@ VALUES  ("Tech Lead", 900000.00, 1),
         ("Advertising Manager", 200000.00, 4),
         ("Art Director" ,134000.00, 4),
         ("Copy Writer" ,156000.00, 4);
+
+INSERT INTO employee ( first_name, last_name, role_id, manager_id)
+VALUES  ("Tom", "Hanks", 9, null),
+        ("Taylor", "Swift", 1, 1),
+        ("Thor", "Smith", 3, null),
+        ("Steve", "Rogers", 2, 2),
+        ("Elon", "Musk", 8, null),
+        ("Tim", "Cook", 7, 3),
+        ("Skylar", "Grey", 5, null ),
+        ("Paige", "Gerrad", 4, 4),
+        ("Sam", "Smith", 6, 2),
+        ("Adele", "Notsure", 2, 4),
+        ("Sam", "Drinkwater", 4, 3),
+        ("Mark", "Messi", 5, 1),
+        ("Sarah", "Ronaldo", 6, 2),
+        ("Zara", "Neymar", 11, 1),
+        ("Mary", "Me", 10, 4);
