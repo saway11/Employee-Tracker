@@ -237,7 +237,20 @@ async function updateEmployeeRole() {
     const [roles] = await db.promise().query(`SELECT title, id FROM role`);
 
     roleList = role.map(({ title, id}) => {
-        
+        return { name: title, value: id };
+    });
+
+    const question = [
+        // list of all employees
+        {
+            type: 'list',
+            name: 'employee_id',
+            message: `Which employee's role do you want to update`,
+            choices: roleList,
+        },
+    ],
+    inquirer.prompt(question).then(({ employee_id, role_id }) => {
+        const queryStatement = `UPDATE employee SET role_id = $[role_id] WHERE id = ${employee_id};`;
     })
 }
 
