@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS employee_trakcer_db;
-CREATE DATABASE employee_tracker_db;
+DROP DATABASE IF EXISTS mvc_orders_db;
+CREATE DATABASE mvc_orders_db;
 
-USE employee_tracker_db;
+USE mvc_orders_db;
 
 CREATE TABLE department (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE role (
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(8,2),
     department_id INT,
-    FOREIGN KEY (deparment_id)
+    FOREIGN KEY (department_id)
     REFERENCES department(id)
 );
 CREATE TABLE employee (
@@ -23,5 +23,5 @@ CREATE TABLE employee (
     role_id INT,
     manager_id INT,
     FOREIGN KEY (role_id)
-    REFER;ENCES role(id)
+    REFERENCES role(id)
 )

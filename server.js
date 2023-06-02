@@ -49,7 +49,7 @@ function askQuestion(isStartUp) {
 
     // function to gather user input and perform actions based on the selected choice.
     inquirer
-        .createPromptModule(questions)
+        .prompt(questions)
         .then((data) => {
             switch (data.likeToDo) {
                 case 'view all departments':
@@ -110,7 +110,7 @@ function addDepartment() {
         },
     ];
     // prompt user to enter what is the name of the deparment
-    inquirer.createPromptModule(question).then(({ addDepartment } = data) => {
+    inquirer.prompt(question).then(({ addDepartment } = data) => {
         const queryStatement = `INSERT INTO department(name)
         Values ('${addDepartment}');
         `;
@@ -155,9 +155,9 @@ async function addRole() {
         ];
 
         // using inquirer to prompt the user for data, insert that data into a databse using SQL and handle any error that occur
-        const data = await inquirer.createPromptModule(question);
+        const data = await inquirer.prompt(question);
         const queryStatement = `INSERT INTO role SET ?`;
-        awaitdb.promise().query(queryStatement, data);
+        await db.promise().query(queryStatement, data);
 
         console.info(`Added ${data.title} the database`);
         askQuestion();
@@ -171,7 +171,7 @@ async function addEmployee() {
 
     const [roles] = await db.promise().query(`SELECT title, id FROM role`);
     // Only need the first array that gets the return from the promise
-    roleArr = role.map(({ title, id}) => {
+    roleArr = roles.map(({ title, id}) => {
         return { name: title, value: id};
     });
 
@@ -182,7 +182,7 @@ async function addEmployee() {
     );
 
     // Only need the first array that gets return from the promise
-    managerList = managers.map(({ firs_name, last_name, id }) => {
+    managerList = managers.map(({ first_name, last_name, id }) => {
         return { name: `${first_name} ${last_name}`, value: id};
     });
 
@@ -211,7 +211,7 @@ async function addEmployee() {
         },
     ];
     // To prompt the user for data, insert the data into a database table 
-    const data = await inquirer.createPromptModule(question);
+    const data = await inquirer.prompt(question);
     const queryStatement = `INSERT INTO employee SET ?`;
     await db.promise().query(queryStatement, data);
 
@@ -241,12 +241,19 @@ async function updateEmployeeRole() {
     });
 
     const question = [
-        // list of all employees
+        //list of all employees
         {
-            type: 'list',
-            name: 'employee_id',
-            message: `Which employee's role do you want to update`,
-            choices: roleList,
+          type: 'list',
+          name: 'employee_id',
+          message: `Which employee's role do you want to update`,
+          choices: employeeList,
+        },
+        //list of all available roles
+        {
+          type: 'list',
+          name: 'role_id',
+          message: `Which employee's role do you want to update`,
+          choices: roleList,
         },
     ];
     inquirer.prompt(question).then(({ employee_id, role_id }) => {

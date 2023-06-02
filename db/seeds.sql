@@ -1,10 +1,10 @@
-INSET INTO department (name)
-VALLUES ("Development"),
+INSERT INTO department (name)
+VALUES ("Development"),
         ("Marketing"),
         ("Sales"),
         ("Advertising");
 
-INSERT INTO role ( title,, salary, department_id )
+INSERT INTO role ( title, salary, department_id )
 VALUES  ("Tech Lead", 900000.00, 1),
         ("Front End Developers" ,310000.00, 1),
         ("Software Developer" ,510000.00, 1),
