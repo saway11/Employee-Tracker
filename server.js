@@ -195,6 +195,11 @@ async function addEmployee() {
             name: 'first_name',
             message: `What is the first name?`,
         },
+        {
+            type: 'input',
+            name: 'last_name',
+            message: `What is the last name?`,
+        },
         // What is the employee's role
         {
           type: 'list',
@@ -222,19 +227,19 @@ async function addEmployee() {
 
 // Update empoyee role
 async function updateEmployeeRole() {
-    const queryStatement = `SELECT id, first_name, last_name FROM employee`;
+    const employeeQuery = `SELECT id, first_name, last_name FROM employee`;
 
     let employeeList, roleList;
 
     // Grab employee list for inquirer choices
-    const [employees] = await db.promise().query(queryStatement);
+    const [employees] = await db.promise().query(employeeQuery);
 
-    employeeList = employees.map(({ id, first_name, last_name } = employee) => {
+    employeeList = employees.map(({ id, first_name, last_name }) => {
         return { name: `${first_name} ${last_name}`, value: id };
     });
 
     // Grab role list for inquirer choices
-    const [roles] = await db.promise().query(`SELECT title, id FROM role`);
+    const [role] = await db.promise().query(`SELECT title, id FROM role`);
 
     roleList = role.map(({ title, id}) => {
         return { name: title, value: id };
@@ -257,11 +262,12 @@ async function updateEmployeeRole() {
         },
     ];
     inquirer.prompt(question).then(({ employee_id, role_id }) => {
-        const queryStatement = `UPDATE employee SET role_id = $[role_id] WHERE id = ${employee_id};`;
+        const updateStatement = 'UPDATE employee SET role_id = ? WHERE id = ?';
 
-        db.query(queryStatment, (err, result) => {
+        db.query(updateStatement, [role_id, employee_id], (err, result) => {
             if (err) {
                 console.log(err);
+                return;
             }
             console.info(`Updated employee's role`);
             askQuestion();
